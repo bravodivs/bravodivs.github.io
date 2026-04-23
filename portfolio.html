@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devanshu Verma — Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #f5efe0;
+        --sidebar: #ede2c8;
+        --sidebar-border: rgba(139, 94, 42, 0.18);
+        --text: #231808;
+        --muted: #7a6a50;
+        --accent: #8b5e2a;
+        --accent-light: rgba(139, 94, 42, 0.08);
+        --card: #fdfaf5;
+        --card-border: rgba(139, 94, 42, 0.14);
+        --tag-bg: rgba(139, 94, 42, 0.1);
+        --line: rgba(139, 94, 42, 0.16);
+        --sidebar-w: 290px;
+        --serif: "Cormorant Garamond", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.75;
+        font-weight: 300;
+        min-height: 100vh;
+        cursor: default;
+      }
+
+      ::selection {
+        background: rgba(139, 94, 42, 0.2);
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(139, 94, 42, 0.25);
+        border-radius: 10px;
+      }
+
+      /* ─────────────────────────────── LAYOUT ── */
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* ─────────────────────────────── SIDEBAR ── */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-w);
+        height: 100vh;
+        background: var(--sidebar);
+        border-right: 1px solid var(--sidebar-border);
+        display: flex;
+        flex-direction: column;
+        padding: 56px 40px 48px;
+        overflow: hidden;
+        z-index: 100;
+      }
+
+      .sidebar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 20% 80%,
+          rgba(139, 94, 42, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .sidebar-name {
+        font-family: var(--serif);
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+
+      .sidebar-role {
+        font-family: var(--serif);
+        font-size: 13px;
+        font-style: italic;
+        color: var(--accent);
+        letter-spacing: 0.06em;
+        margin-bottom: 20px;
+        text-transform: lowercase;
+      }
+
+      .sidebar-tagline {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.65;
+        font-weight: 300;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 36px;
+      }
+
+      /* NAV */
+      .nav {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+      }
+
+      .nav a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--muted);
+        transition: all 0.25s ease;
+        position: relative;
+      }
+
+      .nav a::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: var(--muted);
+        transition: all 0.25s ease;
+        flex-shrink: 0;
+      }
+
+      .nav a:hover,
+      .nav a.active {
+        color: var(--text);
+        background: rgba(139, 94, 42, 0.08);
+      }
+
+      .nav a:hover::before,
+      .nav a.active::before {
+        width: 28px;
+        background: var(--accent);
+      }
+
+      /* SOCIALS */
+      .socials {
+        display: flex;
+        gap: 14px;
+        margin-top: 32px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .socials a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      .socials a:hover {
+        color: var(--accent);
+      }
+
+      /* ─────────────────────────────── MAIN ── */
+      .main {
+        margin-left: var(--sidebar-w);
+        flex: 1;
+        padding: 80px 80px 120px 80px;
+        max-width: calc(100% - var(--sidebar-w));
+      }
+
+      /* ─────────────────────────────── SECTIONS ── */
+      section {
+        margin-bottom: 96px;
+        scroll-margin-top: 80px;
+      }
+
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 36px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .section-label::after {
+        content: "";
+        flex: 1;
+        max-width: 60px;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.4;
+      }
+
+      /* ─────────────────────────────── ABOUT ── */
+      .about-intro {
+        font-family: var(--serif);
+        font-size: 22px;
+        line-height: 1.65;
+        font-weight: 300;
+        color: var(--text);
+        max-width: 640px;
+        margin-bottom: 28px;
+      }
+
+      .about-intro em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .about-body {
+        font-size: 15px;
+        color: var(--muted);
+        max-width: 600px;
+        line-height: 1.85;
+        font-weight: 300;
+      }
+
+      .about-body p + p {
+        margin-top: 16px;
+      }
+
+      .about-body a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(139, 94, 42, 0.3);
+        transition: border-color 0.2s;
+      }
+
+      .about-body a:hover {
+        border-color: var(--accent);
+      }
+
+      /* ─────────────────────────────── EXPERIENCE ── */
+      .exp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .exp-item {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 0 32px;
+        padding: 28px 0;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+        transition: background 0.2s;
+      }
+
+      .exp-item:first-child {
+        border-top: 1px solid var(--line);
+      }
+
+      .exp-item:hover {
+        background: var(--accent-light);
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        border-radius: 10px;
+      }
+
+      .exp-date {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        padding-top: 3px;
+        white-space: nowrap;
+      }
+
+      .exp-title {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+
+      .exp-company {
+        font-size: 13px;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+
+      .exp-desc {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.75;
+        font-weight: 300;
+        margin-bottom: 14px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .tag {
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: var(--tag-bg);
+        color: var(--accent);
+        border: 1px solid rgba(139, 94, 42, 0.15);
+      }
+
+      /* ─────────────────────────────── PROJECTS ── */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .project-card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          border-color 0.3s;
+        cursor: pointer;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(139, 94, 42, 0.1);
+        border-color: rgba(139, 94, 42, 0.28);
+      }
+
+      .project-img {
+        width: 100%;
+        aspect-ratio: 16/10;
+        overflow: hidden;
+        position: relative;
+        background: var(--sidebar);
+      }
+
+      .project-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        display: block;
+      }
+
+      .project-card:hover .project-img img {
+        transform: scale(1.04);
+      }
+
+      .project-img-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 32px;
+        color: rgba(139, 94, 42, 0.25);
+        font-style: italic;
+        letter-spacing: -0.02em;
+      }
+
+      .project-body {
+        padding: 22px 24px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .project-year {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .project-title {
+        font-family: var(--serif);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 10px;
+        line-height: 1.2;
+      }
+
+      .project-desc {
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.72;
+        font-weight: 300;
+        flex: 1;
+        margin-bottom: 16px;
+      }
+
+      .project-link {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: gap 0.2s;
+      }
+
+      .project-card:hover .project-link {
+        gap: 10px;
+      }
+
+      .project-link::after {
+        content: "→";
+      }
+
+      /* Wide card (spans 2 cols) */
+      .project-card.wide {
+        grid-column: 1 / -1;
+        flex-direction: row;
+      }
+      .project-card.wide .project-img {
+        width: 45%;
+        flex-shrink: 0;
+        aspect-ratio: unset;
+      }
+      .project-card.wide .project-body {
+        padding: 32px 36px;
+        justify-content: center;
+      }
+      .project-card.wide .project-title {
+        font-size: 26px;
+      }
+      .project-card.wide .project-desc {
+        font-size: 14.5px;
+      }
+
+      /* ─────────────────────────────── WRITING ── */
+      .writing-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .writing-item {
+        display: grid;
+        grid-template-columns: 90px 1fr auto;
+        gap: 0 28px;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.2s;
+      }
+
+      .writing-item:first-child {
+        border-top: 1px solid var(--line);
+      }
+
+      .writing-item:hover {
+        background: var(--accent-light);
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        border-radius: 8px;
+      }
+
+      .writing-date {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+        letter-spacing: 0.04em;
+      }
+
+      .writing-title {
+        font-family: var(--serif);
+        font-size: 17px;
+        font-weight: 400;
+        color: var(--text);
+        line-height: 1.3;
+      }
+
+      .writing-tag {
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        background: var(--tag-bg);
+        color: var(--accent);
+        letter-spacing: 0.06em;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      /* ─────────────────────────────── FOOTER ── */
+      footer {
+        padding-top: 48px;
+        border-top: 1px solid var(--line);
+        font-size: 12.5px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* ─────────────────────────────── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sidebar {
+        animation: fadeUp 0.6s ease both;
+      }
+      .main > * {
+        animation: fadeUp 0.6s ease both;
+      }
+
+      section:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      section:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      section:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      section:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      /* ─────────────────────────────── CUSTOM CURSOR ── */
+      .cursor-dot {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.08s ease,
+          opacity 0.2s;
+        mix-blend-mode: multiply;
+      }
+
+      .cursor-ring {
+        position: fixed;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(139, 94, 42, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.18s ease,
+          width 0.2s,
+          height 0.2s,
+          border-color 0.2s;
+      }
+
+      body:has(a:hover) .cursor-ring,
+      body:has(.project-card:hover) .cursor-ring {
+        width: 54px;
+        height: 54px;
+        border-color: rgba(139, 94, 42, 0.6);
+      }
+
+      /* ─────────────────────────────── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .main {
+          padding: 64px 52px 100px;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .project-card.wide {
+          flex-direction: column;
+        }
+        .project-card.wide .project-img {
+          width: 100%;
+          aspect-ratio: 16/9;
+        }
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --sidebar-w: 100%;
+        }
+        .sidebar {
+          position: relative;
+          height: auto;
+          padding: 40px 32px 36px;
+          width: 100%;
+        }
+        .layout {
+          flex-direction: column;
+        }
+        .main {
+          margin-left: 0;
+          max-width: 100%;
+          padding: 48px 32px 80px;
+        }
+        .exp-item {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        .writing-item {
+          grid-template-columns: 70px 1fr;
+        }
+        .writing-tag {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="cursor-dot" id="dot"></div>
+    <div class="cursor-ring" id="ring"></div>
+
+    <div class="layout">
+      <!-- ════════ SIDEBAR ════════ -->
+      <aside class="sidebar">
+        <div class="sidebar-name">Devanshu Verma</div>
+        <div class="sidebar-role">designer &amp; developer</div>
+        <p class="sidebar-tagline">
+          I build systems that scale — microservices, event-driven
+          architectures, and the infrastructure nobody sees but everyone depends
+          on.
+        </p>
+
+        <nav>
+          <ul class="nav">
+            <li><a href="#about" class="nav-link active">About</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#writing" class="nav-link">Writing</a></li>
+          </ul>
+        </nav>
+
+        <div class="socials">
+          <a href="https://github.com/bravodivs" target="_blank">GitHub</a>
+          <a
+            href="https://www.linkedin.com/in/devanshu-verma-8b88692a5/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:vermadevanshu17@gmail.com">Email</a>
+          <a href="/resume.pdf" target="_blank">Résumé</a>
+        </div>
+      </aside>
+
+      <!-- ════════ MAIN ════════ -->
+      <main class="main">
+        <!-- ── ABOUT ── -->
+        <section id="about">
+          <div class="section-label">About Me</div>
+          <img
+            src="/images/profile.jpg"
+            alt="devanshu"
+            style="
+              width: 150px;
+              height: 150px;
+              border-radius: 10%;
+              object-fit: cover;
+              float: right;
+              margin: 0 0 16px 28px;
+              border: 3px solid var(--card-border);
+            "
+          />
+
+          <p class="about-intro">
+            I'm a fullstack engineer who finds the most satisfaction in the
+            <em>invisible work</em> — the architecture that holds everything
+            together when traffic spikes and nobody panics.
+          </p>
+
+          <div class="about-body">
+            <p>
+              I've spent the last three years building production-grade
+              distributed systems and APIs that actually perform under load. I
+              care obsessively about details — the kind that most people never
+              consciously notice, but immediately feel.
+            </p>
+            <p>
+              Outside of work, I'm probably rearranging my desk setup, chasing
+              the sun light, playing my guitar or writing something — I won
+              awards for poetry and storytelling in college, which says more
+              about me than any tech stack list.
+            </p>
+            <p>
+              Based in <b>Bengaluru, India</b>. Reach me at
+              <a href="mailto:vermadevanshu17@gmail.com"
+                >vermadevanshu17@gmail.com</a
+              >.
+            </p>
+          </div>
+        </section>
+
+        <!-- ── EXPERIENCE ── -->
+        <section id="experience">
+          <div class="section-label">Experience</div>
+
+          <div class="exp-list">
+            <div class="exp-item">
+              <span class="exp-date">Sep 2025 — Present</span>
+              <div>
+                <div class="exp-title">Software Engineer II</div>
+                <div class="exp-company">
+                  Bounteous · Full-time · Bengaluru, IN
+                </div>
+                <p class="exp-desc">
+                  "Mostly I'm the person in the room asking 'but what happens
+                  when this fails at 3am?' I've grown into owning more of the
+                  architectural decisions — not just building what's spec'd, but
+                  pushing back when the spec is wrong. The work is less about
+                  writing code and more about making sure the right code gets
+                  written.
+                </p>
+                <div class="tags">
+                  <span class="tag">C# .NET Core</span>
+                  <span class="tag">Javascript</span>
+                  <span class="tag">Microservices</span>
+                  <span class="tag">System Design</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <span class="exp-date">Jun 2023 — Aug 2025</span>
+              <div>
+                <div class="exp-title">Software Engineer</div>
+                <div class="exp-company">
+                  Bounteous · Full-time · Chennai, IN
+                </div>
+                <p class="exp-desc">
+                  My days were a mix of debugging production issues, shipping
+                  features for clients, and sitting in architecture discussions
+                  about systems we hadn't built yet. The most interesting
+                  problems were never the big dramatic ones — they were the
+                  subtle ones. I once spent hours debugging a mismatch between
+                  two identical APIs. Same code, same structure, different
+                  behaviour. Turned out the new one was quietly pointing at a
+                  demo URL. Humbling. That kind of thing teaches you to question
+                  everything, especially the things that look fine.
+                </p>
+                <div class="tags">
+                  <span class="tag">Spring Boot</span>
+                  <span class="tag">AWS SQS</span>
+                  <span class="tag">EventBridge</span>
+                  <span class="tag">Elasticsearch</span>
+                  <span class="tag">PostgreSQL</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <span class="exp-date">Feb 2023 — May 2023</span>
+              <div>
+                <div class="exp-title">Software Engineer Intern</div>
+                <div class="exp-company">
+                  Bounteous · Internship · Chennai, IN
+                </div>
+                <p class="exp-desc">
+                  Joined not knowing what production engineering at scale
+                  actually felt like. Continued with a full-time offer and a
+                  permanent habit of reading error logs more carefully than the
+                  code itself.
+                </p>
+                <div class="tags">
+                  <span class="tag">Java</span>
+                  <span class="tag">Reactjs</span>
+                  <span class="tag">RESTful APIs</span>
+                  <span class="tag">Docker</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── PROJECTS ── -->
+        <section id="projects">
+          <div class="section-label">Projects</div>
+
+          <div class="projects-grid">
+            <!-- Wide featured card -->
+            <a
+              class="project-card wide"
+              href="https://github.com/bravodivs"
+              target="_blank"
+            >
+              <div class="project-img">
+                <img
+                  src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&q=80"
+                  alt="Distributed Bookstore API"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div class="project-img-placeholder" style="display: none">
+                  01
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-year">2024 · Featured · New</div>
+                <div class="project-title">Distributed Bookstore API</div>
+                <p class="project-desc">
+                  A microservices system with separate inventory, sales, and
+                  order services — each owning its own data, talking to each
+                  other the right way. Built it in Spring Boot mostly to prove
+                  to myself I could architect something clean from scratch,
+                  without a client requirement telling me what to do.
+                </p>
+                <div class="tags" style="margin-bottom: 20px">
+                  <span class="tag">SPring Boot</span>
+                  <span class="tag">Microservices</span>
+                  <span class="tag">PostgreSQL</span>
+                  <span class="tag">Docker</span>
+                </div>
+                <span class="project-link">View on GitHub</span>
+              </div>
+            </a>
+
+            <a
+              class="project-card"
+              href="https://github.com/bravodivs"
+              target="_blank"
+            >
+              <div class="project-img">
+                <img
+                  src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80"
+                  alt="Solo leveling"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div class="project-img-placeholder" style="display: none">
+                  02
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-year">2025</div>
+                <div class="project-title">DSA & Tech Learning Tracker</div>
+                <p class="project-desc">
+                  I kept forgetting what I'd studied and what I hadn't. So I
+                  built a gamified tracker in Python — covers DSA, backend,
+                  frontend, and system design. Progress tracking, streaks, the
+                  works. Turns out building the tool to learn a thing is itself
+                  a good way to learn the thing.
+                </p>
+                <div class="tags" style="margin-bottom: 16px">
+                  <span class="tag">Python</span>
+                  <span class="tag">Gamification</span>
+                  <span class="tag">Backend</span>
+                </div>
+                <span class="project-link">View on GitHub</span>
+              </div>
+            </a>
+
+            <a
+              class="project-card"
+              href="https://github.com/devanshu-verma"
+              target="_blank"
+            >
+              <div class="project-img">
+                <img
+                  src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80"
+                  alt="job applier"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div class="project-img-placeholder" style="display: none">
+                  03
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-year">2026</div>
+                <div class="project-title">Automated Job Applicator</div>
+                <p class="project-desc">
+                  A personal frustration project. Job hunting involves a lot of
+                  repetitive, soul-crushing form filling. I'm building something
+                  that handles the mechanical parts — AI-assisted, web scraping
+                  under the hood. Not finished yet, but it's already saved me
+                  more time than it took to build.
+                </p>
+                <div class="tags" style="margin-bottom: 16px">
+                  <span class="tag">Python</span>
+                  <span class="tag">AI</span>
+                  <span class="tag">Web Scraping</span>
+                  <span class="tag">Automation</span>
+                </div>
+                <span class="project-link">View on GitHub</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- ── WRITING ── -->
+        <section id="writing">
+          <div class="section-label">Writing</div>
+
+          <div class="writing-list">
+            <a class="writing-item" href="#" target="_blank">
+              <span class="writing-date">Mar 2025</span>
+              <span class="writing-title"
+                >Why 81% latency reduction isn't about databases — it's about
+                understanding your data</span
+              >
+              <span class="writing-tag">Engineering</span>
+            </a>
+
+            <a class="writing-item" href="#" target="_blank">
+              <span class="writing-date">Nov 2024</span>
+              <span class="writing-title"
+                >Event-driven architecture: what nobody tells you about
+                idempotency</span
+              >
+              <span class="writing-tag">Architecture</span>
+            </a>
+
+            <a class="writing-item" href="#" target="_blank">
+              <span class="writing-date">Jul 2024</span>
+              <span class="writing-title"
+                >Reverse engineering legacy systems — lessons from 120
+                ColdFusion apps</span
+              >
+              <span class="writing-tag">Engineering</span>
+            </a>
+
+            <a class="writing-item" href="#" target="_blank">
+              <span class="writing-date">Feb 2024</span>
+              <span class="writing-title"
+                >HLD, LLD, and the art of writing docs people actually
+                read</span
+              >
+              <span class="writing-tag">Process</span>
+            </a>
+
+            <a class="writing-item" href="#" target="_blank">
+              <span class="writing-date">Oct 2023</span>
+              <span class="writing-title"
+                >On being a poet who writes microservices</span
+              >
+              <span class="writing-tag">Personal</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ── FOOTER ── -->
+        <footer>
+          <p>Designed &amp; built by <a href="#">Devanshu Verma</a> · 2026</p>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      /* ── Custom cursor ── */
+      const dot = document.getElementById("dot");
+      const ring = document.getElementById("ring");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+      });
+      function animCursor() {
+        dot.style.left = mx + "px";
+        dot.style.top = my + "px";
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animCursor);
+      }
+      animCursor();
+
+      /* ── Active nav on scroll ── */
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              navLinks.forEach((l) => l.classList.remove("active"));
+              const active = document.querySelector(
+                `.nav-link[href="#${e.target.id}"]`,
+              );
+              if (active) active.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.45 },
+      );
+
+      sections.forEach((s) => obs.observe(s));
+
+      /* ── Smooth reveal on scroll ── */
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.opacity = "1";
+              e.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+
+      document
+        .querySelectorAll(".exp-item, .project-card, .writing-item")
+        .forEach((el, i) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(16px)";
+          el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
+          revealObs.observe(el);
+        });
+
+      const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 0.8 });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    </script>
+  </body>
+</html>
